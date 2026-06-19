@@ -89,6 +89,19 @@
                     <span class="text-muted small">{{tributes|length}} tributes shared</span>
                 </div>
 
+                <div class="card p-3 mb-4 shadow-sm border-0 bg-light">
+                    <form method="GET" action="" class="d-flex align-items-center gap-2">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted">🔍</span>
+                            <input class="form-control border-start-0" type="search" name="q" placeholder="Search memories,names or keywords..." aria-label="search" value="{{request.GET.q|default:''}}">
+                        </div>
+                        <button class="btn btn-cfc-blue px-4 shadow-sm" type="submit">Search</button>
+                        {% if request.GET.q %}
+                            <a href="?" class="btn btn-outline-secondary shadow-sm">Clear</a>
+                        {% endif %}
+                    </form>
+                </div>
+
                 <div class="timeline-container">
                     {% if tributes %}
                         {% for tribute in tributes %}
@@ -113,11 +126,25 @@
                                     </small>
                                 </div>
                             </div>
+                        {% empty %}
+                            <div class="text-center bg-white rounded p-5 shadow-sm border">
+                                <h3>No matching memories found.</h3>
+                                <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
+                                <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
+                            </div>
                         {% endfor %}
                     {% else %}
-                        <div class="text-center bg-white rounded p-5 shadow-sm border">
-                            <p class="text-muted m-0">No tributes have been shared yet. Be the first to leave a memory.</p>
-                        </div>
+                        {% if request.GET.q %}
+                            <div class="text-center bg-white rounded p-5 shadow-sm border">
+                                <h3>No matching memories found.</h3>
+                                <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
+                                <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
+                            </div>
+                        {% else %}
+                            <div class="text-center bg-white rounded p-5 shadow-sm border">
+                                <p class="text-muted m-0">No tributes have been shared yet. Be the first to leave a memory.</p>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

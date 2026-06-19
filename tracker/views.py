@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import MemorialPost
 
 
@@ -27,9 +28,19 @@ def memorial_home(request):
         # Refresh the page so they immediately see their post on the timeline
         return redirect('home')
 
-    # 2. If someone just loads the website
+    # 2. If someone just loads the website (or uses the search bar)
     # Fetch all memories from newest to oldest
     all_tributes = MemorialPost.objects.all().order_by('-date_created')
+
+    #Get the search query from the GET request
+    search_query = request.GET.get('q')
+
+    if search_query:
+        # Filter the tributes based on the search query
+        all_tributes = all_tributes.filter(
+            Q(author_name__icontains=search_query) |
+            Q(tribute_text__icontains=search_query)
+        )
 
     # Count how many virtual candles have been lit
     total_candles = MemorialPost.objects.filter(light_candle=True).count()
