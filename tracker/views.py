@@ -29,7 +29,7 @@ def memorial_home(request):
 
     # 2. If someone just loads the website
     # Fetch all memories from newest to oldest
-    all_tributes = MemorialPost.objects.all().order_by('date_created')
+    all_tributes = MemorialPost.objects.all().order_by('-date_created')
 
     # Count how many virtual candles have been lit
     total_candles = MemorialPost.objects.filter(light_candle=True).count()
