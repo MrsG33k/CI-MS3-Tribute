@@ -18,7 +18,7 @@ I have created a private virtual memorial and tribute space dedicated to the mem
 You can view the deployed application here [Laurie Irvine Memorial](https://web-production-721e.up.railway.app/)
 
 
-![Github Last Commit](  /github/last-commit/MrsG33k/CI-MS3-Tribute)
+![Github Last Commit]( https://img.shields.io/github/last-commit/MrsG33k/CI-MS3-Tribute)
 ![Github language count](https://img.shields.io/github/languages/count/MrsG33k/CI-MS3-Tribute)
 
 ---

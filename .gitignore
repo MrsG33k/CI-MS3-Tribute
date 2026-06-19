@@ -14,5 +14,6 @@ db.sqlite3
 
 # Location environment variables
 .env
+.venv/
 .vscode/
 .DS_Store
