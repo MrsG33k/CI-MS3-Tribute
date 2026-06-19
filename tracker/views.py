@@ -28,7 +28,7 @@ def memorial_home(request):
         return redirect('home')
 
     # 2. If someone just loads the website
-    # Fetch all memories from newest to oldest for ease of viewing
+    # Fetch all memories from newest to oldest
     all_tributes = MemorialPost.objects.all().order_by('-date_created')
 
     # Count how many virtual candles have been lit
