@@ -1,0 +1,19 @@
+# Created to suppress the following warning:
+# E501 line too long ( > 79 characters)
+
+Ini, TOML
+[flake8]
+#Exclude folders that contain boilerplate code or are not relevant to the project
+exclude = .git,
+__pycache__,
+docs,
+venv,
+env,
+build,
+dist,
+*.migrations,
+manage.py
+
+# Ignore line length restrictions due to unsplittable strings
+per-file-ignores =
+    core_project/settings.py: E501

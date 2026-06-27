@@ -7,7 +7,8 @@ from .models import MemorialPost
 @admin.register(MemorialPost)
 class MemorialPostAdmin(admin.ModelAdmin):
     # Determines what details admin see when looking at list of posts
-    list_display = ('author_name', 'relationship', 'light_candle', 'date_created')
+    list_display = ('author_name', 'relationship',
+                    'light_candle', 'date_created')
 
     # Adds a filter for easier viewing
     list_filter = ('light_candle', 'relationship', 'date_created')

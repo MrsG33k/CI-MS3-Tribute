@@ -32,7 +32,7 @@ def memorial_home(request):
     # Fetch all memories from newest to oldest
     all_tributes = MemorialPost.objects.all().order_by('-date_created')
 
-    #Get the search query from the GET request
+    # Get the search query from the GET request
     search_query = request.GET.get('q')
 
     if search_query:

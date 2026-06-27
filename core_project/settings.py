@@ -8,10 +8,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-development-
 
 DEBUG = os.environ.get('DEBUG_VALUE', 'True') == 'True'
 
-# Temporary fix for clickjacking issue, will be removed in the future when the issue is resolved
-X_FRAME_OPTIONS = 'ALLOWALL'
-
-
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # Tells Django where to collect static files for production
@@ -28,7 +24,8 @@ STORAGES = {
 # Prevents crashing if a file is missing
 WHITENOISE_MANIFEST_STRICT = False
 
-# Check to see if the app is running on Railway, and if so, use the Railway database settings
+# Check to see if the app is running on Railway,
+# and if so, use the Railway database settings
 if os.environ.get('RAILWAY_ENVIRONMENT'):
     # PRODUCTION - Use Railway database settings
     DATABASES = {
