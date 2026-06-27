@@ -18,7 +18,9 @@ class MemorialPost(models.Model):
 
     # Form fields that visitors will complete
     author_name = models.CharField(max_length=100, blank=False)
-    relationship = models.CharField(max_length=30, choices=RELATIONSHIP_CHOICES, default='friend')
+    relationship = models.CharField(max_length=30,
+                                    choices=RELATIONSHIP_CHOICES,
+                                    default='friend')
     tribute_text = models.TextField(blank=False)
 
     # Virtual Candle option
@@ -29,4 +31,4 @@ class MemorialPost(models.Model):
 
     def __str__(self):
         # How the post will look inside the Django admin panel
-        return f"Tribute from {self.author_name} ({self.get_relationship_display()})"
+        return f"Tribute from {self.author_name} ({self.get_relationship_display()})"  # noqa: E501

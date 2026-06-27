@@ -13,6 +13,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='memorialpost',
             name='relationship',
-            field=models.CharField(choices=[('family', 'Family'), ('friend', 'Friend'), ('railway', 'Railway'), ('football', 'Football'), ('community', 'Community'), ('other', 'Other')], default='friend', max_length=30),
+            field=models.CharField(choices=[
+                ('family', 'Family'),
+                ('friend', 'Friend'),
+                ('railway', 'Railway'),
+                ('football', 'Football'),
+                ('community', 'Community'),
+                ('other', 'Other')], default='friend', max_length=30),
         ),
     ]

@@ -14,9 +14,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MemorialPost',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('author_name', models.CharField(max_length=100)),
-                ('relationship', models.CharField(choices=[('family', 'Family'), ('friend', 'Friend'), ('railway', 'Railway'), ('football', 'Football'), ('community', 'Community')], default='friend', max_length=30)),
+                ('relationship',
+                 models.CharField(choices=[
+                     ('family', 'Family'),
+                     ('friend', 'Friend'),
+                     ('railway', 'Railway'),
+                     ('football', 'Football'),
+                     ('community', 'Community')],
+                     default='friend', max_length=30)),
                 ('tribute_text', models.TextField()),
                 ('light_candle', models.BooleanField(default=False)),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
