@@ -197,9 +197,9 @@ h1, h2, h3, h4, h5, h6, .display-4 {
 
 .footer-background {
     background: linear-gradient(135deg, var(--cfc-stadium-blue)0%, var(--cfc-royal-blue));
-    color: var(var(--cfc-clean-white));
-    border-bottom: 5px solid var(var(--cfc-accent-gold));
-    box-shadow: 0 4px 15px rgba(0,0,0,0,0.15);
+    color: var(--cfc-clean-white);
+    border-bottom: 5px solid var(--cfc-accent-gold);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 /*Media Queries */
