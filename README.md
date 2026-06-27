@@ -270,33 +270,48 @@ The admin allow registered users to log into the Django admin panel to maintain 
 * I initially wanted to build the project with a light/dark mode toggle. As part of my research into this, I stumbled across using global variables for the colour scheme, which I have kept. I soon found myself getting sidetracked and spending a lot of time on the toggle and couldn't quite get it right, so decided to shelf it for this project and add it as a future development.
 
 
-
 ### Accessibility
 
-Throughout this project I have aspired to make it as accessible as possible. 
+Throughout this project, I have aspired to make it as accessible as possible to ensure all family, friends, and other users can easily navigate the page.
+
 #### Design
-I deliberately chose a clean, high-contrast design throughout the project. The off white background colour is easier on the eye to the viewer. Using minimal colours throughout the project will aid players with visual impairments. 
+I deliberately chose a clean, high-contrast design throughout the project. The off-white background colour (`#F4F4F9`) was carefully selected to be gentler on the eyes than a stark, pure white background. Keeping the interface minimal and avoiding cluttered design patterns aids visitors with visual or cognitive impairments. 
 
-The UI has been built using a mobile-first approach. It features large touch targets at all interaction points and a responsive header that scales to ensure that the gameplay content remains 'above the fold' on smaller screens. 
+The UI has been built using a mobile-first approach, ensuring that elements stack cleanly. It features large, touch-friendly interactive targets at all points of engagement (such as the form inputs and the search button). The navigation loop is exceptionally simple; because it is a single-page wall layout with a dedicated backend dashboard link, visitors can scroll fluidly without any complex menus.
 
-The game flow is designed with clear exit points 'Play Again' and 'Return to Menu' as well as the header providing a clickable link back to the homepage. Intuitive feedback is given to the player such as the distance calculations and score summaries. The aim is to ensure that players of all abilities can navigate the game with ease. 
+#### Coding
+I have used semantic HTML structures and descriptive ARIA labels throughout to fully support those using assistive technologies, keyboard navigation, and screen readers.
 
-### Coding
-I have used semantic HTML and ARIA labels throughout to support those using assistive technologies and screen readers. This will be particularly helpful for the interactive elements, navigation and the modals. 
+| Element | ARIA / Semantic Attribute | Purpose |
+| :--- | :--- | :--- |
+| Interactive Form Controls | `required`, clear `<label for="...">` linking | Ensures screen readers announce exact field expectations for names and messages. |
+| Global Candle Counter | Semantic wrapper with clear text description | Automatically announces the changing candle metrics cleanly to visually impaired users. |
+| Search Bar Input | `type="search"` and `aria-label="Search"` | Signals to assistive technologies that this block functions as an interactive filtering tool rather than standard text. |
+| Administrative Links | Decorative iconography separate from link tags | Guarantees screen readers speak the literal destination (e.g., "Family Admin Portal Access") instead of reading aloud structural symbol characters. |
 
-| Element      | ARIA Attribute | Purpose   |
-| ----------- | ----------- | ----------- |
-| Modals     | `role="dialog`       | Identifies the pop up as a separate interactive window      |
-| Stats Cards   | `aria-live="polite`       | Automatically announces the score/round changes to visually impaired users       |
-| Close Buttons   | `aria-label`        | Replaces the X symbol with clear close instructions        | 
-| Game Map   | `role="application"`        | Signals that the map is an interactive tool rather than a static image       |           
+## Database Architecture & CRUD Realization
+
+The application fully implements standard relational database CRUD (Create, Read, Update, Delete) architecture using Django Views, a PostgreSQL database model, and an administrative user interface:
+
+| Operation | Target Feature | Implementation Details |
+| :--- | :--- | :--- |
+| **CREATE** | Tribute Guestbook Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`) directly into the PostgreSQL database. |
+| **READ** | The Memorial Wall Feed | Django queries records from the backend and passes them to the template via a context dictionary (`tributes`), rendering them in reverse-chronological order. |
+| **LOCATE** | Dynamic Search Filter Bar | Users can isolate specific entries instantly. The view captures URL parameters using `request.GET.get('q')` and runs database filter lookups using `Q` objects to filter fields case-insensitively. |
+| **UPDATE** | Family Administrative Portal | Authorized family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
+| **DELETE** | Content Curation Controls | Spammed, duplicated, or erroneous messages can be instantly and permanently removed from the server by family users via the secure backend layout. |
+
+### Technical Feature Reference: Search functionality
+The multi-field keyword search bar relies on combining Django's core request interception tools with database lookups:
+* **Framework Documentation Utilized:** [Django Lookups with Q Objects](https://docs.djangoproject.com/en/stable/topics/db/queries/#complex-lookups-with-q-objects) & [HttpRequest GET Parameters](https://docs.djangoproject.com/en/stable/ref/request-response/#django.http.HttpRequest.GET)
+* **Practical Reference Material:** [LearnDjango - Practical Search Form Implementation Guides](https://learndjango.com/tutorials/django-search-tutorial)
 
 ## Technologies Used
 
 * **Languages:** HTML5, CSS3, Python
 * **Frameworks:** Django, Bootstrap 5
 * **Database:** PostgreSQL
-* **Hosting:** Heroku
+* **Hosting:** Railway
 
 ### Libraries & Programs Used
 
@@ -309,7 +324,7 @@ I have used semantic HTML and ARIA labels throughout to support those using assi
 
 * [VS Code](https://code.visualstudio.com/) - IDE used to create the site.
 
-* [Google Fonts](https://fonts.google.com/) - Google fonts were used to import the 'Orbitron' and the 'Roboto' font into the project.
+* [Google Fonts](https://fonts.google.com/) - Google fonts were used to import the 'Oswald', 'Inter' and 'Alex Brush' fonts into the project.
 
 * [To WebP](https://towebp.io/) - Used to convert images to WebP format.
 
@@ -322,18 +337,22 @@ I have used semantic HTML and ARIA labels throughout to support those using assi
 ## Deployment & Local Development
 
 
-### Deployment
+### Deployment to Railway
 
-### GitHub Pages
+The application is deployed to **Railway** linked to a live **PostgreSQL** relational database using the following steps:
 
-The project was deployed to GitHub Pages using the following steps...
+1. Log into the [Railway](https://www.railway.com) Dashboard, or create a new account
+2. From the dashboard - Create a New Project and choose to deploy from a GitHub repository. (This will require you to link your Github account to your Railway account)
+3. Inside that project click on **+ Add** and create a Database > PostgreSQL (This will then spinup a new database for you)
+4. Set up the required environment variable key-value tokens within the Railway variables panel:
+   * `SECRET_KEY`: Your private Django security string.
+   * `DEBUG_VALUE`: Set to `False` in production environments.
+   * `DATABASE_URL`: Automatically generated by mapping your associated PostgreSQL database instance link.
+5. Configure the deployment start command to run asset compiling BEFORE executing the WSGI container:
+  `python manage.py collectstatic --noinput && gunicorn core_project.wsgi`
+6. Commit any changes to your main branch on your GitHub Repository. Railway will automatically pick up the push, initialize the container build sequence, run migrations, and publish the live web URL.
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
-2. At the top of the Repository (not top of page), locate the "Settings" Button on the menu.
-3. Scroll down the Settings page until you locate the "GitHub Pages" Section.
-4. Under "Source", click the dropdown called "None" and select "Master Branch".
-5. The page will automatically refresh.
-6. Scroll back down through the page to locate the now published site [link](https://github.com) in the "GitHub Pages" section.
+Railway also has their own guide on how to deploy which can be found [here](https://docs.railway.com/quick-start#deploying-your-project---from-github)
 
 ### Forking the GitHub Repository
 
@@ -343,6 +362,26 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
 3. You should now have a copy of the original repository in your GitHub account.
 
+### Cloning the GitHub Repository
+
+By cloning the Github Repository we make a copy of the original repository on a local computer allowing you to interact with files directly in an editor, such as VS Code. 
+
+1. On GitHub, navigate to your fork of the repository.
+2. Click the green **Code** button located above the file directory.
+3. Copy the URL string provided (HTTPS or SSH alternative).
+4. Open your local machine's terminal window, navigate to where you want the project to live, and enter the following git command:
+   ```bash
+   git clone [https://github.com/MrsG33k/CI-MS3-Tribute.git](https://github.com/MrsG33k/CI-MS3-Tribute.git)
+5. Navigate into the newly created folder
+   ```bash
+   cd CI-MS3-Tribute
+6. Intitialise your Python Virtual Environment layer (.venv) and run the setup parameters locally:
+   ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip3 install -r requirements.txt
+    python3 manage.py migrate
+    python3 manage.py runserver
 
 ## Testing
 Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
@@ -369,9 +408,6 @@ Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
 - [CSS3 Patterns Gallery](https://projects.verou.me/css3patterns/#carbon): Design by Atle Mo and code by Sebastien Grosjean. Modified for the blue header.
 
 
-### Content
-
-- [Doctor Who Locations](https://www.doctorwholocations.net/locations/list): Information about the Doctor Who filming locations
 
 ###  Media
 
@@ -379,6 +415,11 @@ Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
 - [https://shields.io/](https://shields.io/) - To create the badges on the README introduction
 - [https://www.flaticon.com/free-icon/candle_2146319?term=candle&page=1&position=12&origin=search&related_id=2146319](https://flaticon.com) - Image of a candle used for the Favicon by JustIcon
 
-  
-###  Acknowledgments
 
+### Acknowledgments
+
+This project is a deeply personal tribute, and its successful implementation would not have been possible without the invaluable support, feedback, and encouragement of family and friends:
+
+* **Michael Whittaker:** For providing technical troubleshooting assistance during the initial deployment phase to Railway, and for thorough cross-device compatibility testing to ensure a seamless responsive user experience.
+* **Elaine Hopkins:** For offering insightful design feedback that directly helped shape and polish the final grid layout and structural header aesthetics.
+* **My Mum and Sister:** For their heartfelt collaboration, guidance, and continuous involvement throughout the creative process, specifically in choosing the typography, refining the wording of the page, and selecting the perfect header photograph to honor our dad's memory.
