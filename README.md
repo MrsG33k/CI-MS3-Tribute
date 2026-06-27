@@ -89,10 +89,10 @@ Family members, friends, neighbours, colleagues wishing to share condolences and
 
 ### Colour Scheme
 
-Because this project is based on Doctor Who I wanted to incorporate the colour palette of Doctor Who without completely copywriting the branding and trademark. 
+This is a deeply personal project paying tribute to my dad who was a massive Chelsea FC fan. I decided from the start that I wanted to include the colours from the Chelsea FC logo into the design. This included Blue, White and Gold. 
 <br>
-<img src ="assets/images/coolorspalette.webp" alt="Colour palette of Blue, Gold and off white for the website" width="500" align="left">
-<img src="assets/images/doctorwhologo.webp" alt="Doctor Who logo" width ="300">
+<img src ="assets/colourpalette.webp" alt="Colour palette of Blue, Gold and off white for the website" width="500" align="left">
+<img src="assets/chelsealogo.webp" alt="Chelsea FC logo" width ="300">
 <br>
 <br>
 <br>
@@ -105,45 +105,56 @@ Because this project is based on Doctor Who I wanted to incorporate the colour p
 <br>
 I used [coolors](https://coolors.co/) to create my colour palette.
 These colours have been used in the following way:
-* I have used `#063970` as the text colour, the button background.
-* I have used `#FFD700` as an accent colour. It is used as a Hover effect on the buttons and to emphasise the 'Whoniverse' in the title. 
-* I have used `#F4F4F9` as the background. I chose this off white colour as it is less harsh on the eye compared to using `#FFF`
-* I have used `#000` for the borders on the project
+* I have used `#034694` as the button backgrounds and the card accent colours.
+* I have used `#034694` as the text colour and the header / footer colours.
+* I have used `#eea925` as accents between sections and the text for the footer. `
+* I have used `#fff` for the header text, to stand out against the blue background, the background for the candles lit count.
 
 For this project I used CSS styles for colours throughout the project. Instead of hard-coding hex codes in the various styles I declared the colour palette as global variables in the `root:` selector. This made sense for many reasons, primarily because the colours need only be declared once. Any follow up changes or tweaks to colours can be made in one place and updated throughout.
 
 By using `var` to insert the value of a variable it also means I can give them semantic meaning. So instead of a variety of different Hex code, I instead have `var(--accent-colour)` which is brilliant for readability throughout.  
-
-Initially I was going to implement a dark/light mode toggle and whilst this is now moved to a future development, by using the variables it would be easy to swap the values under a different class rather than write additional CSS to accommodate the different light/dark mode colours.  
+ 
 
 ### Typography
 
 I used [Google Fonts](https://fonts.google.com/) for this project. 
 
-* For headings / titles I used <strong>Orbitron</strong>. I chose this font because it's a sans-serif font with a futuristic look. In the same way as the colours, I didn't want any copyright / trademark infringement so steered away from fan fonts. 
+* For headings / titles I used <strong>Oswald</strong>. I chose this font as I wanted a sans-serif clean looking font that was easy to read but still strong and stylish.
 
-  <img src="assets/images//fontorbitron.webp" alt="The Orbitron font spelling Where in the Whoniverse">
+  <img src="assets/fontoswald.webp" alt="The Oswald font spelling In Loving Memory">
   <hr>
   <br>
-* For the main text, I wanted to include a sans serif font for readability. I also wanted it to have a slightly futuristic look and so I used <strong>Roboto</strong>. 
+* For the main body text, I wanted to include a sans serif font for readability so I used <strong>Inter</strong>. 
 
-   <img src="assets/images//fontroboto.webp" alt="The Roboto font spelling Where in the Whoniverse">
+   <img src="assets/fontinter.webp" alt="The inter font spelling Leave a Tribute">
 
+  <hr>
+  <br>
+* For the footer text, I wanted to include a calligraphy style font, so it read like we were leaving a signature at the bottom, but I didn't want anything to intricate that would be difficult to read, so I went with <strong>Alex Brush</strong>. 
+
+   <img src="assets/fontalexbrush.webp" alt="The Alex Brush font spelling Love from Carol">
 
 ### Imagery
 
-* Logo - For the logo, I wanted to merge together the idea of the TARDIS and a standard Map Pin. I wanted to keep it nice and simple, so the focus is on the game, rather than the logo. 
-   <img src="assets/images/logoidea.webp" alt="A map pin and the TARDIS" width="150" align="left">
-<br>
-<br>
-<br>
-<br>
+* Logo / Header - For the logo, I wanted a simple image of my dad at his favourite place, Stamford Bridge. I used a photo I had taken back in 2023 and used [Photopea](http://www.Photopea.com) to remove the background. 
+
+   <img src="assets/dadoriginal.webp" alt="Photo of a man in a football stadium sat on the players bench" width="200">  
+   Before editing
+   <br>
+  
+    <img src="assets/dadcutout.webp" alt="Photo of a man in a football kit, with the background removed." width="150">  
+    After editing
+    <br>
 <br>
 <br>
 
-* Locations - For the locations, I wanted to find still images from iconic locations in Doctor Who to use as a visual clue for the player. 
+* Emojis - For all of the other imagery on the website I have used the standard emojis:
+  * Candle: 🕯️
+  * Football: ⚽
+  * Search: 🔍
+  * Padlock: 🔒
 
-* 404 Page - For the 404,  I have always liked a funny picture on a 404 page. I liked the idea of a broken down TARDIS or something like that as a visual clue to the user that something has gone wrong. 
+
 
 ### Wireframes
 Wireframes were created using [Canva](https://www.canva.com)
