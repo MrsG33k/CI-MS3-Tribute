@@ -80,8 +80,8 @@
 
 /* Custom Chelsea FC Inspired Colour palette */
 :root {
-    --cfc-royal-blue: #034694;    /* The iconic Chelsea Royal Blue */
-    --cfc-stadium-blue: #002244;  /* Navy for backgrounds and headers */
+    --cfc-royal-blue: #034694;    /* Royal Blue for Buttons */
+    --cfc-stadium-blue: #002244;  /* Navy for backgrounds and text */
     --cfc-accent-gold: #EEA925;   /* Gold for accents*/
     --cfc-clean-white: #FFFFFF;   /* white for contrast */
 }
@@ -94,7 +94,7 @@ body {
 
 /* Header styles using Oswald Google fonts */
 h1, h2, h3, h4, h5, h6, .display-4 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald', sans-serif; /* Uses Oswald, Google font */
     letter-spacing: 0.5px;
 }
 
