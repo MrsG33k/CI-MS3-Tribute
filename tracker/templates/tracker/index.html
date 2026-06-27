@@ -27,7 +27,7 @@
                     <p class="text-white-50 max-w-2xl mx-auto mx-md-0 header-tribute-text">Blue is the colour, football is the game, gone but not forgotten, forever in our hearts</p>
                     <div class="mt-3">
                         <span class="d-none d-md-inline-flex align-items-center bg-white text-dark rounded-pill px-4 py-2 shadow-sm fw-semibold">
-                        🕯️<span class="text-primary mx-2 fw-bold">{{candle_count}}</span> Candles Lit
+                        🕯️<span class="text-primary mx-2 fw-bold" aria-hidden="true">{{candle_count}}</span> Candles Lit
                         </span>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     </form>
                 </div>
 
-                <div class="timeline-container">
+                <div class="timeline-container" aria-live="polite" aria-atomic="true">
                     {% if tributes %}
                         {% for tribute in tributes %}
                             <div class="card tribute-card border-0 shadow-sm mb-3 p-4">
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="text-center bg-white rounded p-5 shadow-sm border">
+                            <div class="text-center bg-white rounded p-5 shadow-sm border" role="status">
                                 <h3>No matching memories found.</h3>
                                 <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
                                 <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>

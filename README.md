@@ -281,7 +281,7 @@ Throughout this project, I have aspired to make it as accessible as possible to 
 #### Design
 I deliberately chose a clean, high-contrast design throughout the project. The off-white background colour (`#F4F4F9`) was carefully selected to be gentler on the eyes than a stark, pure white background. Keeping the interface minimal and avoiding cluttered design patterns aids visitors with visual or cognitive impairments. 
 
-The UI has been built using a mobile-first approach, ensuring that elements stack cleanly. It features large, touch-friendly interactive targets at all points of engagement (such as the form inputs and the search button). The navigation loop is exceptionally simple; because it is a single-page wall layout with a dedicated backend dashboard link, visitors can scroll fluidly without any complex menus.
+The UI has been built using a mobile-first approach, ensuring that elements stack cleanly. It features large, touch-friendly interactive targets at all points of engagement (such as the form inputs and the search button). The navigation loop is exceptionally simple; because it is a single-page wall layout with a dedicated backend dashboard link, visitors can scroll fluidly without any complex menus or login required.
 
 #### Coding
 I have used semantic HTML structures and descriptive ARIA labels throughout to fully support those using assistive technologies, keyboard navigation, and screen readers.
