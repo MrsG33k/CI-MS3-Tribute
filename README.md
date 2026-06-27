@@ -267,7 +267,11 @@ The admin allow registered users to log into the Django admin panel to maintain 
 
 ### Future Implementations
 
-* I initially wanted to build the project with a light/dark mode toggle. As part of my research into this, I stumbled across using global variables for the colour scheme, which I have kept. I soon found myself getting sidetracked and spending a lot of time on the toggle and couldn't quite get it right, so decided to shelf it for this project and add it as a future development.
+* **Media Attachments** I would like to expand the tribute form further to allow users to upload media alongside their tribute. This is primarily looking at photographs, but could be video files, audio files and documents. This would involve using Djangos `FileField` or `ImageField` models and also incorporating cloud media storage to store the assets uploaded.
+
+* **User led edits / deletes** The current admin login allows family members to edit and delete entries. I would like to explore giving users the option to create an account which would then allow them the options to edit or delete their entries. 
+
+* **Light / Dark system mode toggle** To aid with accessibility a toggle control to allow users to choose between light and dark mode would allow users to instantly switch the layout to suit their needs / devices. This could be implemented using some Javascript and adding alternate colours to the current CSS files.
 
 
 ### Accessibility
@@ -289,22 +293,40 @@ I have used semantic HTML structures and descriptive ARIA labels throughout to f
 | Search Bar Input | `type="search"` and `aria-label="Search"` | Signals to assistive technologies that this block functions as an interactive filtering tool rather than standard text. |
 | Administrative Links | Decorative iconography separate from link tags | Guarantees screen readers speak the literal destination (e.g., "Family Admin Portal Access") instead of reading aloud structural symbol characters. |
 
-## Database Architecture & CRUD Realization
+## Database Schema & Entity Relationship Diagram (ERD)
 
-The application fully implements standard relational database CRUD (Create, Read, Update, Delete) architecture using Django Views, a PostgreSQL database model, and an administrative user interface:
+Whilst the primary tribute interaction relies on a custom data model (`tracker_memorialpost`), the application's backend architecture utilises a relational framework by interfacing with Django's core authentication tables to secure administrative privileges for the relevant family users.
+
+Below is the Entity Relationship Diagram representing the active database schema hosted on Railway:
+
+<figure>
+    <img src="assets/dberd2.webp" alt="Entity Relationship Diagram showing the custom tracker_memorialpost and Django Auth User tables">
+    <figcaption>Entity Relationship Diagram (ERD) mapping out the tracker_memorialpost and Django Auth User tables.</figcaption>
+</figure>
+
+#### Design Justification: Why the Tables Aren't Directly Linked
+
+The `tracker_memorialpost` table intentionally remains unlinked by a direct **Foreign Key (FK)** relationship to the `auth_user` table. This design pattern was a deliberate architectural choice based on the project's user requirements and  user experience (UX) goals:
+
+1. **Authentication-Free Tribute Postings:** The aim of the tribute page is to allow family, friends, and ex-colleagues to quickly leave a tribute message or light a virtual candle *without* the need to create an account or login registration. 
+
+2. **Decoupling Public Inputs from family admin profiles:** Because standard visitors do not have corresponding rows inside the `auth_user` table, forcing a Foreign Key constraint on the `author_name` or `user_id` would break database integrity, making it impossible for public users to save records. 
+
+3. **Administrative Isolation:** The `auth_user` and `django_session` tables exist separately to manage authenticating and tracking active administrative sessions. The staff accounts use Django's underlying object-relational mapping (ORM) privilege layers to gain access to the row manipulation controls (Update/Delete) over `tracker_memorialpost` within the administrative workspace, removing the need for a rigid database-level schema link.
+
+### Database Architecture & CRUD Realization
+
+This project fully implements standard relational database CRUD (Create, Read, Update, Delete) architecture using Django Views, a PostgreSQL database model, and an administrative user interface:
 
 | Operation | Target Feature | Implementation Details |
 | :--- | :--- | :--- |
-| **CREATE** | Tribute Guestbook Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`) directly into the PostgreSQL database. |
+| **CREATE** | Tribute Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`) directly into the PostgreSQL database. |
 | **READ** | The Memorial Wall Feed | Django queries records from the backend and passes them to the template via a context dictionary (`tributes`), rendering them in reverse-chronological order. |
-| **LOCATE** | Dynamic Search Filter Bar | Users can isolate specific entries instantly. The view captures URL parameters using `request.GET.get('q')` and runs database filter lookups using `Q` objects to filter fields case-insensitively. |
+| **LOCATE** | Dynamic Search Filter | Users can isolate specific entries instantly. The view captures URL parameters using `request.GET.get('q')` and runs database filter lookups using `Q` objects to filter fields case-insensitively. |
 | **UPDATE** | Family Administrative Portal | Authorized family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
 | **DELETE** | Content Curation Controls | Spammed, duplicated, or erroneous messages can be instantly and permanently removed from the server by family users via the secure backend layout. |
 
-### Technical Feature Reference: Search functionality
-The multi-field keyword search bar relies on combining Django's core request interception tools with database lookups:
-* **Framework Documentation Utilized:** [Django Lookups with Q Objects](https://docs.djangoproject.com/en/stable/topics/db/queries/#complex-lookups-with-q-objects) & [HttpRequest GET Parameters](https://docs.djangoproject.com/en/stable/ref/request-response/#django.http.HttpRequest.GET)
-* **Practical Reference Material:** [LearnDjango - Practical Search Form Implementation Guides](https://learndjango.com/tutorials/django-search-tutorial)
+
 
 ## Technologies Used
 
@@ -331,6 +353,8 @@ The multi-field keyword search bar relies on combining Django's core request int
 * [Photopea](https://www.photopea.com/) - Used to edit and create graphics for the project
 
 * [Favicon.io](https://favicon.io/) - Used to create the favicon based on the logo
+
+* [dbdiagram.io](https://dbdiagram.io/) - Used to create the Entity Relationship Diagram
 
 
 
@@ -402,6 +426,9 @@ Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
 - [Deploying Django to Railway](https://www.youtube.com/watch?v=A4Pn2lEdoLQ&start=0): YouTube video by Coding Entrepreneurs to help with issues when deploying Django to Railway App.
 - [Railway User Guides](https://docs.railway.com/guides/django): Railway official guides to support deploying Django app to Railway.
 - [Whitespace with Django](https://whitenoise.readthedocs.io/en/stable/django.html): Used to help fix issue with styling / images not displaying on production app.
+- [Django Lookups with Q objects](https://docs.djangoproject.com/en/6.0/topics/db/queries/#complex-lookups-with-q-objects): Used when implementing the search functionality 
+- [Django Search Tutorial](https://learndjango.com/tutorials/django-search-tutorial): Used alongside the link above when implementing the search bar functionality  
+
 
 
 ### Code Used
