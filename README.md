@@ -159,157 +159,111 @@ I used [Google Fonts](https://fonts.google.com/) for this project.
 ### Wireframes
 Wireframes were created using [Canva](https://www.canva.com)
 
-#### ON PAGE LOAD
 
 #### Desktop
 <figure>
-    <img src="assets/images/indexdesktop.png" width='800'
-         alt="Desktop wireframe on page load">
-    <figcaption>This shows how the app will load on desktop with two clear buttons "Start Game" and "How to Play"</figcaption>
+    <img src="assets/desktop1.webp" width='800'
+         alt="Desktop wireframe of the top of memorial page">
+    <figcaption>This shows the view on page load - You will see the header with photo of Laurie, the left hand will contain the form to write the tribute, with the right hand side acting as a display of all tributes left.</figcaption>
+</figure>
+<figure>
+    <img src="assets/desktop2.webp" width='800'
+         alt="Desktop wireframe of the bottom of the memorial page">
+    <figcaption>This shows the view when scrolling to the bottom - The right hand side will continue to show the display of tributes left, with a bold footer at the bottom with a signature from the family and admin portal login for maintenance of the tributes left.</figcaption>
 </figure>
 
 
 
 #### Mobile
 <figure>
-    <img src="assets/images/indexmobile.png" width='300'
+    <img src="assets/mobile1.webp" width='300'
          alt="Mobile wireframe on page load">
-    <figcaption>This shows how the app will load on mobile using vertical stacking with two clear buttons "Start Game" and "How to Play"</figcaption>
+    <figcaption>This shows the view on mobile on page load. It's important that users can see whe the memorial is for and be presented with the form to leave a tribute clearly.</figcaption>
 </figure>
 
-
-#### PLAYING THE GAME
-
-#### Desktop
 <figure>
-    <img src="assets/images/gamedesktop.png" width='800'
-         alt="Mobile wireframe on page load">
-    <figcaption>This shows how the app will appear in 'play' mode, with the map on the left and all buttons/scoring on the right"</figcaption>
-</figure>
-
-#### Mobile
-<figure>
-    <img src="assets/images/gamemobile.png" width='300'
-         alt="Mobile wireframe on page load">
-    <figcaption>This shows how the app will appear in 'play' mode" keeping the map on the top of the stack and keeping buttons 'thumb friendly' for users on mobile.</figcaption>
-</figure>
-
-
-#### RESULTS DISPLAY
-#### Desktop
-<figure>
-    <img src="assets/images/resultsdesktop.png" width='800'
-         alt="Mobile wireframe on page load">
-    <figcaption>This shows how the app will appear in 'results' mode, keeping consistent, with the map on the left and all buttons/scoring on the right"</figcaption>
-</figure>
-
-#### Mobile
-<figure>
-    <img src="assets/images/resultsmobile.png" width='300'
-         alt="Mobile wireframe on page load">
-    <figcaption>This shows how the app will appear in 'results' mode" keeping the map on the top of the stack and keeping buttons 'thumb friendly' for users on mobile.</figcaption>
+    <img src="assets/mobile2.webp" width='300'
+         alt="Mobile wireframe on scroll">
+    <figcaption>This shows the view on mobile on page scroll. It shows all of the tributes left before reaching the footer at the bottom containing the family signature and admin login portal.</figcaption>
 </figure>
 
 
 
 ## Features
-Where in the Whoniverse comprises the following pages:
-* index.html - Allowing the user to start the game, or learn how to play
-* game.html - The game itself 
-* 404.html - If the user requests a webpage that cannot be found, with a redirect to the homepage. 
+The Virtual Memorial and Tribute space contains the following features:
 
-### General features on each page
+* index.html - The primary view template which serves as both the tribute timeline feed and the form submission handling.
+* /admin - The Django admin portal which allows registered users to edit and delete tributes as necessary.
 
-Each page has the following consistent features:
 
-#### Favicon
-Each page has a a favicon version of the TARDIS pin logo. This gives the website a professional look and reinforces the brand. 
-<img src="assets/images/screenshotfavicon.webp" width="600" alt="Screenshot of webpage address bar showing favicon">
-#### index.html
+### Favicon
+The page has a a favicon of a candle image. This was chosen to make it obvious that the website was a memorial - as traditionally candles are used as a symbol.
+<img src="assets/favicon.webp" width="400" alt="Screenshot of webpage address bar showing favicon">
 
-#### Logo / Header
-Each page has a consistent header section containing the TARDIS pin logo and a stylised header with the name of the game <strong>Where in the Whoniverse?</strong>. The logo and the header both provide a link back to the homepage.
+
+### Header
+The page has a header section containing a cutout photo of Laurie Irvine against a textured background. The name of the tribute page is visualised in a bold font <strong>In loving memory of Laurie Irvine</strong> Below the text is a poem to remember Laurie. The last thing on the header is a count of the number of candles lit. 
 <br>
-<img src="assets/images/screenshotheader.webp" width="600" alt="Screenshot of website header featuring a logo and a header">
+<img src="assets/header.webp" width="600" alt="Screenshot of website header">
 
-#### Footer
-Each page has a simple but consistent footer which contains copyright information and a disclaimer that the website is not affiliated with BBC or Doctor Who. 
-<img src="assets/images/screenshotfooter.webp" width="600" alt="Screenshot of website footer">
+### Footer
+The page has a simple footer section containing a gold signature of the family, followed by a link to the admin portal login. 
+<img src="assets/footer.webp" width="600" alt="Screenshot of website footer">
 
 ### Index.html
-The index / home page features the header, an image I created featuring a world map, a pin marker and a TARDIS followed by two clear buttons "Start Adventure" and "How to Play". The aim was to keep it simple, so users could quickly understand what to do. 
-<br>
-<br>
-<img src="assets/images/indexhtml.webp" width="600" align="center" alt="Am I responsive view of the homepage loading on a tablet, screen, phone">
-<br>
-
-* Start Adventure - Clicking the Start Adventure button will take the user to the game.html page. 
-* How to Play - Clicking the How To Play button will open up the modal which explains how to play the game. 
-<img src="assets/images/modalhowtoplay.webp" width="400" alt="Screenshot of popup modal of how to play">
-
-### Game.html
-The game page displays the following components:
-* The left hand grid (Taking up 2/3rds) - Map - which will always default to Bad Wolf Studios in Cardiff
-* The right hand grid (Taking up 1/3rd) 
-  * The location image - A randomised choice of 10 location images
-  * A score box which updates each round
-  * A round X of X box which updats each round
-  * A hint button which will provide a modal pop up with a hint to solve the location. 
-<br>
-<br>
-
-<img src="assets/images/gamehtml.webp" width="600" align="center" alt="Am I responsive view of the game page loading on a tablet, screen, phone">
-<br>
-
-#### The Map 
-<figure>
-    <img src="assets/images/gamemarkerpin.webp" width='150'
-         alt="Map marker pin shaped like the TARDIS">
-    <figcaption>This shows the TARDIS marker pin being placed at a location on the map</figcaption>
-</figure>
-To enhance the game immersion, I replaced the default Leaflet marker with a custom TARDIS-pin SVG. I adjusted the iconAnchor properties to ensure the 'landing' point of the TARDIS correctly aligns with the user's geographic coordinates.
-<br>
-<br>
-
-
-#### The Hint Modal
-The hint button takes the hint text from locations.json to display a line of text which will give the user additional help to find the location.
-<figure>
-    <img src="assets/images/gamehint.webp" width='400'
-         alt="The hint modal pop up offering extra help for solving the location">
-    <figcaption>The hint modal will pop up on click and give the user extra help to find the location</figcaption>
-</figure>
-<br>
-<br>
-
-
-#### The Submit Button
-The submit button has a built in check to ensure the user doesn't accidentally click submit before adding a marker on the map. If the user does submit before adding a marker the following modal will activate. 
-<figure>
-    <img src="assets/images/gamesubmiterror.webp" width='400'
-         alt="The error modal pop up if a user submits before adding a marker">
-    <figcaption>The error modal pop up if a user submits before adding a marker</figcaption>
-</figure>
-<br>
-<br>
-When a user clicks the submit button after placing a pin marker. A calculation based on the leaflet.js built in functionality will work out the distance between where they clicked and the co-ordinates provided in the locations.json file. It will then calculate a score and present these to the user, with an option to progress to the next round. 
-<figure>
-    <img src="assets/images/gamesubmit.webp" width='400'
-         alt="The submit modal will pop up once a user has successsfully submitted an answer">
-    <figcaption>The submit modal will provide feedback to the user on where the location is, how far away they were from it and how many points they are going to get.</figcaption>
-</figure>
+* The left hand grid (Using .col-4 flex) - Leave a Tribute form - This will allow users to leave a tribute and if they want to light a virtual candle in memory of Laurie Irvine.
 
 <figure>
-    <img src="assets/images/gameendof.webp" width='400'
-         alt="The submit modal will pop up once a user has finished 5 rounds">
-    <figcaption>Once a player has completed 5 rounds they get a modal with their final score and the chocies to Play Again? or Exit to Menu</figcaption>
+    <img src="assets/addtribute.webp" width='300'
+         alt="The add tribute section of the webpage">
+    <figcaption>This shows the section for adding a tribute on the desktop view</figcaption>
 </figure>
 
-#### 404.html
-The 404 page acts as a seamless user experience, if a user were to navigate to a non existent URL instead of seeing a standard browswer error they will instead see a themed 404 page with a button navigating back to the index.html page. I implemented a CSS on hover effect with the TARDIS image just for "fun". I was thinking along the lines of the dinosaur game you get on browswers. Just a small bit of entertainment for the user.
+* The right hand grid (Using .col-8 flex) - View the Tributes - This will allow users to scrol, search and view any tributes left. 
+  * A search bar - to search for any particular keywords.
+  * The name of the person who left the tribute
+  * The relationship
+  * Whether they lit a candle
+  * The tribute content itself
+  * The date/time the tribute was left
 
-<img src="assets/images/404html.webp" width="600" align="center" alt="Am I responsive view of the 404 page loading on a tablet, screen, phone">
+<figure>
+  <img src="assets/readtribute.webp" width='500'
+        alt="The read tribute section of the webpage">
+  <figcaption>This shows the section for searching and reading a tribute on the desktop view</figcaption>
+</figure>
 
+<br>
+<img src="assets/amiresponsiveindex.webp" width="600" align="center" alt="Am I responsive view of the index loading on a tablet, screen, phone">
+<br>
+
+
+### /admin
+
+The admin allow registered users to log into the Django admin panel to maintain the tributes left. 
+<figure>
+  <img src="assets/adminlogin.webp" width='400'
+        alt="The admin login page">
+  <figcaption>This shows the view when a user arrives at the admin portal</figcaption>
+</figure>
+<br>
+<figure>
+  <img src="assets/adminloggedin.webp" width='400'
+        alt="The admin view once logged in">
+  <figcaption>This shows the view when a user successfully logs in to the admin portal</figcaption>
+</figure>
+<br>
+<figure>
+  <img src="assets/adminmemorialview.webp" width='400'
+        alt="The admin memorial view of posts">
+  <figcaption>This shows the view of all of the tributes currently left</figcaption>
+</figure>
+<br>
+<figure>
+  <img src="assets/adminactions.webp" width='400'
+        alt="The admin memorial view of a single tribute">
+  <figcaption>This shows the view of how the admin can edit / delete a particular tribute.</figcaption>
+</figure>
 
 ### Future Implementations
 
