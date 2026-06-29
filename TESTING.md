@@ -76,7 +76,7 @@ The initial result of the scan was 97 for Performance and 96 for Accessibility.
 
 To resolve the issue I opened the image back into Photopea and reduced the whole image size before exporting once again as a .webp file at reduced size and dimensions. 
 
-* **Accessibility Issues:** Bringing down this score was a contrast issue on the font on the badge displaying the relationship on the memorial wall. It was using Bootstraps text-secondary, which is a muted grey. I changed it to text-secondary - A darker colour. Below is the before and after of the colour contrast
+* **Accessibility Issues:** Bringing down this score was a contrast issue on the font on the badge displaying the relationship on the memorial wall. It was using Bootstraps text-muted, which is a light grey. I changed it to text-secondary - A darker colour. Below is the before and after of the colour contrast
 
 <figure>
     <img src="assets/lighthousecontrast.webp"
@@ -179,8 +179,7 @@ Additional testing was taken by friends and family on a variety of devices and s
 | Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
 | :--- | :--- | :--- | :--- | :--- |
 | Keyword Filter - With result | HTMX intercepts typing and filters the timeline container down to matching rows instantly - without a page refresh. | 1. Located the search bar input<br>2. Typed "Michael" and pause typing | The HTMX successfully fired a request. The timeline container updated smoothly to isolate one matching record | PASS |
-| Keyword Filter - Without result | HTMX intercepts typing and upon there being no matches it swaps the timeline with a custom empty-state fallback with the search criteria and a button to view all tributes. | 1. Located the search bar input<br>2. Typed "Jennie" and pause typing | The timeline container updated to display "No matching memories found.
-We couldn't find any memories matching "jennie". Try searching again." and displayed a button to "View All Memories" | PASS |
+| Keyword Filter - Without result | HTMX intercepts typing and upon there being no matches it swaps the timeline with a custom empty-state fallback with the search criteria and a button to view all tributes. | 1. Located the search bar input<br>2. Typed "Jennie" and pause typing | The timeline container updated to display "No matching memories found. We couldn't find any memories matching "jennie". Try searching again." and displayed a button to "View All Memories" | PASS |
 | View All Memories - Button Test | The "No matching memories found...." is replaced by the Memorial Wall tributes and the search bar is cleared. | Click the button | The page refreshed and the memorial wall with all of the tributes was displayed in full | PASS |
 | Delete Search Criteria | As each character is deleted, the filtering updates to reflect the matching rows instantly, and when all characters are removed all entries are displayed in order. | 1. Type the word "post"<br> 2. Two posts are returned. <br>3.Delete the letters "T, S, O" <br> 4. Three posts are returned <br> 5. Delete the letter "P" <br> 6. All entries are now returned in order | Following the testing in order, the word POST returned two posts, The letter P returned three posts and with all characters deleted it returned all posts. | PASS |
 

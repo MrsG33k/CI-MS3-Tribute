@@ -10,7 +10,7 @@
 
 ### Project Overview & Context
 
-This web application has been developed for Milestone 3 of the Code Institute Level 5 Diploma in Web Application Development. The brief was to develop and implement a responsve, full-stack, database-back web application using Python, Django framework and a relational database. 
+This web application has been developed for Milestone 3 of the Code Institute Level 5 Diploma in Web Application Development. The brief was to develop and implement a responsve, full-stack database back-end web application using Python, Django framework and a relational database. 
 
 I have created a private virtual memorial and tribute space dedicated to the memory of my late father. It provides an interface where family, friends and community can easily read a shared timeline of condolences, submit their own text-based tributes and light a virtual candle.
 
@@ -124,7 +124,7 @@ I used [Google Fonts](https://fonts.google.com/) for this project.
   <img src="assets/fontoswald.webp" alt="The Oswald font spelling In Loving Memory">
   <hr>
   <br>
-* For the main body text, I wanted to include a sans serif font for readability so I used <strong>Inter</strong>. 
+* For the main body text, I wanted to include a sans-serif font for readability so I used <strong>Inter</strong>. 
 
    <img src="assets/fontinter.webp" alt="The inter font spelling Leave a Tribute">
 
@@ -240,7 +240,7 @@ The page has a simple footer section containing a gold signature of the family, 
 
 ### /admin
 
-The admin allow registered users to log into the Django admin panel to maintain the tributes left. 
+The /admin webpage allows registered users to log into the Django admin panel to maintain the tributes left. 
 <figure>
   <img src="assets/adminlogin.webp" width='400'
         alt="The admin login page">
