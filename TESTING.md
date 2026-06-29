@@ -70,7 +70,7 @@ The initial result of the scan was 97 for Performance and 96 for Accessibility.
 
 * **Performance Issues:** Bringing down this score were external libraries affecting the rendering time for the page load. The Bootstrap, Google Fonts and also the HTMX that is used on the Search were all included in this list. There is not a lot I can do myself to fix this, and shouldn't cause too much detriment to the performance.. One of the other issues was the size of the header image laurieheader.webp. 
 <figure>
-    <img src="assets/lighthouseimage.webp"
+    <img src="assets/lighthouseimage.webp" width="600px"
          alt="A screenshot of the warning of the image size on chrome dev tools">
 </figure>
 
@@ -102,7 +102,7 @@ Accessible web extension was used to check the website.
 
 Two compliance warnings were flagged regarding the application's secondary text elements. 
 <figure>
-    <img src="assets/accessible1.webp"
+    <img src="assets/accessible1.webp" height="100px"
          alt="Screenshot of 2 warnings with the accessibility, one moderate, one minor">
 </figure>
 
@@ -115,36 +115,30 @@ Two compliance warnings were flagged regarding the application's secondary text 
 
 Once these two issues were resolved the same scan was repeated, this time with no errors.
 <figure>
-    <img src="assets/accessible2.webp"
+    <img src="assets/accessible2.webp" width="500px"
          alt="Screenshot of a message saying there are no accessibility issues with the website. ">
 </figure>
 
 - - -
+<br><br>
 
 ## MANUAL TESTING
 
 ### Testing User Stories
 
-`First Time Visitors`
-
-| Goals | How are they achieved? |
-| :--- | :--- |
-| As a First Time Visitor, I want to see a clear 'How to Play' guide when the page loads so that I can understand the game mechanics before starting my first round. | On landing on the webpage the user is presented with a "How to Play" button which displays instructions for playing the game. |
-| As a First Time Visitor, I want to be able to easily identify the guess map and the 'Submit' button so that I can play the game without confusion | The map is the focal point of game.html taking up 2/3 of the space. The submit button is a large button that is visible to users on desktop and mobile.|
-| As a First Time Visitor accessing the site on my phone, I want the interface to stack vertically so that all the interactive elements remain accessible and nothing is obscured. | All elements stack on mobile, with the map being on top, followed by the location image and then the submit button. The header also reduces in size to maximise the element display. |
-
-
-`Returning Visitors`
-
-|  Goals | How are they achieved? |
-| :--- | :--- |
-| As a Returning Visitor, I want a 'Play again' button that resets the game state and picks a new random location. | Once a user has completed the game they are presented with the option to start a new game |
-| As a Returning Visitor, I want the game to feel different each time, by providing a range of different locations for me to guess the location of. | There are 5 rounds per game, and 10 locations in total. The game will prevent the same location being chosen twice. Future developments will add to the number of locations. |
-| As a Returning Visitor, I want a 'Play again' button that resets the game state and picks a new random location. | Once a user has completed the game they are presented with the option to start a new game |
-| As a Returning Visitor, I want the game to remember my "Theme" settings so that the app feels personalised to me every time I return.  | This part wasn't achieved in the project. I wanted to include a dark/light mode toggle, but I ended up moving this to future developments instead.  |
+| Goals / User Stories | How are they achieved? | Status |
+| :--- | :--- | :--- |
+| **First Time Visitor:** I want to see a clean timeline of tributes and memories left by others without having to navigate a complicated website layout. | The application uses Bootstrap to create a clean, modern single-page layout. Django queries all records from the PostgreSQL database and passes them to the template via a context loop (`{% for tribute in tributes %}`). Tributes are displayed in a responsive, vertical grid that automatically handles content scaling across all desktop, tablet, and mobile breakpoints. | **PASSED** |
+| **First Time Visitor:** I want to easily find and fill out a simple tribute form with my name, relationship and a personal memory without being forced to create an account. | Anyone is able to leave a tribute without having to sign up or create an account. The tribute input form sits prominently in the left-hand column on desktop layouts (and cascades directly below the header on mobile devices). Data validation is handled  by the browser (`required` fields) before processing secure `POST` database injections. | **PASSED** |
+| **First Time Visitor:** I want to light a virtual candle alongside my message so that I can show my support. | The tribute form features a custom Bootstrap toggle switch element labeled "Light a virtual candle for Laurie". On submission, this passes a boolean `True` value to the database model's `light_candle` field. When rendered on the memorial wall feed, an active toggle conditionally displays a glowing candle (`🕯️`) within that specific tribute card view. | **PASSED** |
+| **Returning Visitor:** I want to revisit the page and see an updated total counter of how many virtual candles have been lit, so that I can see the ongoing support from friends and family over time. | The header area features a dynamic badge displaying `{{candle_count}}`. The underlying Django view uses a database aggregation query (`MemorialPost.objects.filter(light_candle=True).count()`) to calculate the exact sum of all records where a candle was lit. This counter updates in real time upon page loads, allowing returning visitors to see ongoing support over time. | **PASSED** |
+| **Returning Visitor:** I want to search for a specific tribute by a particular person, or a keyword so that I can read the story and share others memories. | A dedicated search bar is integrated directly above the memorial wall feed. It makes use of **HTMX text field interception**  as a user types. The backend filters records using case-insensitive complex `Q` objects on both the `author_name` and `tribute_text` fields, instantly isolating matching memories without the page needing to refresh. | **PASSED** |
+| **Returning Visitor:** As a user who has already left a memory, I want to ensure that nobody else can accidentally edit or delete it from the front end. | The Memorial Wall layout is entirely read-only for database records. Data manipulation is absent from the frontend UI and is securely isolated behind Django's built-in `django.contrib.auth` authentication portal (`/admin`). The only people who will have the ability to edit or delete a memory are administrator accounts set up using the Django auth user tables. | **PASSED** |
 
 
 - - -
+<br>
+<br>
 
 ### Full Testing
 
@@ -165,15 +159,11 @@ Each device tested the site using the following browsers:
 
 Additional testing was taken by friends and family on a variety of devices and screen sizes. 
 
-One issue that was identified was that the how to play modal pop up didn't always scroll when on mobile view. I did recreate this issue and fixed by changing the modal overflow and overscroll in CSS.
-
-<figure>
-    <img src="assets/images/howtomodalscroll.gif"
-         alt="gif showing the modal not scrolling on mobile" width="250">
-</figure>
 
 
-#### Home.html
+### Pass / Fail Testing
+
+#### index.html
 
 | Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
 | --- | --- | --- | --- | --- |
@@ -182,40 +172,3 @@ One issue that was identified was that the how to play modal pop up didn't alway
 | Modal close button | Closes the modal | Clicked on close button | Modal closed | Pass |
 | Start Adventure | Directs the user to the game page | Clicked on button | Game page opens to display the difficulty selections | Pass |
 | All buttons - hover effect | All blue buttons with white text should change to gold buttons with black text on hover | Hover over each button on the page | Each button displayed the correct styling when hovered over | Pass |
-
-
-#### Game.html
-
-| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
-| --- | --- | --- | --- | --- |
-| The Sites title / logo | Link directs the user back to the home page | Clicked title | Directed back to home page | Pass |
-| All buttons - hover effect | All blue buttons with white text should change to gold buttons with black text on hover | Hover over each button on the page | Each button displayed the correct styling when hovered over | Pass |
-| Hint Button | Displays the modal with the hint for the location | Clicked on button | Modal with instructions on how to play opens | Pass |
-| Modal close button | Closes the modal | Clicked on close button | Modal closed | Pass |
-| Map loading | Map loads with Bad Wolf Studios as the location | loaded the game page | Map loaded with Bad Wolf Studios as the location | Pass |
-| Submit Button pre marker | Displays the modal explaining you can't submit before placing a marker | Click submit before placing a marker | Modal with instructions opens | Pass |
-| Submit Button post marker | Display a modal with the location name, distance from the location and the score | Click submit after placing a marker | Modal with results opens | Pass |
-| Score | Score increments after each round | Playing at least one round | Score updated from 0 to the score gained | Pass |
-| Round | Round increments from 0 of 5 to 1 of 5 until it reaches 5 | Playing at least one round | Round updated from 0 of 5 to 1 of 5 | Pass |
-
-
-
-#### Game.html - End of game
-
-| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
-| --- | --- | --- | --- | --- |
-| End of Round 5 modal | After round 5 the modal should give you a total score and button to play another game | Completed 5 rounds | Modal opened with total score and button to play another game | Pass |
-| New Game 'Play Again?' | On clicking 'Play Again?' the score / rounds should reset and map go back to default state | Play 5 rounds and click 'Play Again?' at end | Game reset score to 0, rounds to 0 and map reset | Pass |
-| New Game 'Exit to Menu' | On clicking 'Exit to Menu' the player is taken back to index.html | Play 5 rounds and click 'Exit to Menu' at end | index.html loads | Pass |
-
- 
-
-
-#### 404 Error Page
-
-| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
-| --- | --- | --- | --- | --- |
-| The Sites title / logo | Link directs the user back to the home page | Clicked title | Directed back to home page | Pass |
-| All buttons - hover effect | All blue buttons with white text should change to gold buttons with black text on hover | Hover over each button on the page | Each button displayed the correct styling when hovered over | Pass |
-| Hover on image - Desktop| The image rotates and glows | Hovered on image | Image rotated and glowed | Pass |
-| Return Home button | Takes the player to index.html | Clicked on button | index.html loaded | Pass |
