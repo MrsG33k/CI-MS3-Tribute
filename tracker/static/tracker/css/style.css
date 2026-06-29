@@ -98,6 +98,19 @@ h1, h2, h3, h4, h5, h6, .display-4 {
     letter-spacing: 0.5px;
 }
 
+/* --- Accessibility Color Contrast Overrides (WCAG AAA Compliance) --- */
+.text-secondary, 
+.text-muted, 
+.small.text-muted,
+.style-text {
+    color: #4d4d4d !important;
+}
+
+/* Ensure secondary text inside light background blocks passes the 7:1 ratio */
+.text-white-50 {
+    color: #dedede !important;
+}
+
 
 /* Cards to represent each individual tribute */
 .tribute-card {
