@@ -106,12 +106,12 @@ Two compliance warnings were flagged regarding the application's secondary text 
          alt="Screenshot of 2 warnings with the accessibility, one moderate, one minor">
 </figure>
 
-* **Issue 1:** Bootstrap's default secondary and muted text classes (`.text-secondary` and `.text-muted`) render in a light grey (`#6c757d`). When placed against white or off-white backgrounds, this output only achieves a contrast ratio of **4.68:1**. which fails the strict **WCAG 2.2 AAA enhanced contrast standard** which demands a minimum ratio of **7:1** for regular text body elements.
-* **The Resolution:** A higher contrast colour (`#4d4d4d`) was added to the CSS to override the default colours for Bootstrap. This satisfies the **7:1** ratio. 
+* **Issue 1:** Bootstrap's default secondary and muted text classes (`.text-secondary` and `.text-muted`) render in a light grey (`#6c757d`). When placed against white or off-white backgrounds, this output only achieves a contrast ratio of **4.68:1**. which fails the strict **WCAG 2.2 AAA enhanced contrast standard** which requires a minimum ratio of **7:1** for regular text body elements.
+* **The Resolution:** A higher contrast colour (`#4d4d4d`) was added to the CSS to override the default colours within Bootstrap. This satisfies the **7:1** ratio requirement.
 
 
 * **Issue 2:** The validator identified an "orphaned" layout segment. The charity donation callout section (`<section class="donation-banner">`) was added directly between`</header>` and `<main>` tags. Because this element sat completely exposed outside of a designated 'HTML5 structural landmark block', screen readers flagged it as a non-contained barrier.
-* **The Resolution:** The structural nesting architecture inside `tracker/templates/tracker/index.html` was changed. The primary `<main>` landmark element was expanded upward to encapsulate the banner section completely.
+* **The Resolution:** The structural nesting architecture inside `tracker/templates/tracker/index.html` was changed. The primary `<main>` landmark element was expanded upward to include the banner section.
 
 Once these two issues were resolved the same scan was repeated, this time with no errors.
 <figure>
@@ -161,14 +161,44 @@ Additional testing was taken by friends and family on a variety of devices and s
 
 
 
-### Pass / Fail Testing
+### Manual Functional Testing
 
-#### index.html
+
+##### Tribute Form Submission & Data Validation
 
 | Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
 | --- | --- | --- | --- | --- |
-| The Sites title /logo | Link directs the user back to the home page | Clicked title | Home page reloads | Pass |
-| How to play button | Displays the modal with the instructions on how to play the game | Clicked on button | Modal with instructions on how to play opens | Pass |
-| Modal close button | Closes the modal | Clicked on close button | Modal closed | Pass |
-| Start Adventure | Directs the user to the game page | Clicked on button | Game page opens to display the difficulty selections | Pass |
-| All buttons - hover effect | All blue buttons with white text should change to gold buttons with black text on hover | Hover over each button on the page | Each button displayed the correct styling when hovered over | Pass |
+| Empty Required Name Field| Submission is blocked and a validation warning tooltip displays asking you to fill out the field. No database record is created.|1. Left "Your name" field entirely blank <br> 2. Populated the other fields. <br>3. Clicked "Share Memory" |The form did not submit. The tooltip highlighted the field saying "Please fill out this field" | PASS |
+| Empty Required Message Field | Submission is blocked and a validation warning tooltip displays asking you to fill out the field. No database record is created. | 1. Left "Your Memory or Message" field entirely blank <br> 2. Populated the other fields. <br>3. Clicked "Share Memory"  | The form did not submit. The tooltip highlighted the field saying "Please fill out this field" | PASS  |
+| Share a Memory Submission without candle | The form successfully submits using a `POST` method. The page reloads, the form is reset, the new tribute appears at the top of the wall. | 1. Populated all of the text fields <br> 2. Left "light a virtual candle" switch toggled off. <br>3. Clicked "Share Memory". | The page successfully reloaded and the form cleared. The new tribute card rendered instantly at the top of the timeleed feed WITHOUT a candle icon | PASS |
+| Share a Memory Submission with candle | The form successfully submits using a `POST` method. The page reloads, the form is reset, the new tribute appears at the top of the wall. | 1. Populated all of the text fields <br> 2. Toggled "light a virtual candle" switch on. <br>3. Clicked "Share Memory". | The page successfully reloaded and the form cleared. The new tribute card rendered instantly at the top of the timeline feed WITH a candle icon. The total number of candles lit in the header section increased by 1. | PASS |
+
+
+#### Search & Filtering the Memorial Wall
+
+| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
+| :--- | :--- | :--- | :--- | :--- |
+| Keyword Filter - With result | HTMX intercepts typing and filters the timeline container down to matching rows instantly - without a page refresh. | 1. Located the search bar input<br>2. Typed "Michael" and pause typing | The HTMX successfully fired a request. The timeline container updated smoothly to isolate one matching record | PASS |
+| Keyword Filter - Without result | HTMX intercepts typing and upon there being no matches it swaps the timeline with a custom empty-state fallback with the search criteria and a button to view all tributes. | 1. Located the search bar input<br>2. Typed "Jennie" and pause typing | The timeline container updated to display "No matching memories found.
+We couldn't find any memories matching "jennie". Try searching again." and displayed a button to "View All Memories" | PASS |
+| View All Memories - Button Test | The "No matching memories found...." is replaced by the Memorial Wall tributes and the search bar is cleared. | Click the button | The page refreshed and the memorial wall with all of the tributes was displayed in full | PASS |
+| Delete Search Criteria | As each character is deleted, the filtering updates to reflect the matching rows instantly, and when all characters are removed all entries are displayed in order. | 1. Type the word "post"<br> 2. Two posts are returned. <br>3.Delete the letters "T, S, O" <br> 4. Three posts are returned <br> 5. Delete the letter "P" <br> 6. All entries are now returned in order | Following the testing in order, the word POST returned two posts, The letter P returned three posts and with all characters deleted it returned all posts. | PASS |
+
+
+#### 3. Family Admin Portal Access
+
+| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
+| :--- | :--- | :--- | :--- | :--- |
+| Direct admin link access | If a user tries to directly access the `/admin/` server path link it will force a redirect back to the login portal (Assuming they are not already logged in)| 1. Ensure you are logged out of any active admin sessions <br> 2. Attempt to navigate directly to the path `https://web-production-721e.up.railway.app/admin/` | The direct URL redirects to the Django administrative login screen | PASS |
+| Failed admin Sign-in Attempt| If the user enters an incorrect username/password they will be given an error message.| 1. Navigate to the Admin access link <br> 2. Type an invalid username / password (i.e. test / test) <br>3. Click "Log In" | Upon entering the username/password "test" the following error message was displayed *"Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive."*| PASS |
+| Successful admin Sign-in Attempt | Session succeeds. The dashboard opens, with site administration for the Memorial Posts. The footer on the main webpage updates to show active session with user name and direct links to "Manage and Delete Tributes" and "Log Out" | 1. Navigate to the Admin access link. <br> 2.Type a valid username/password <br> 3. click "Log In" <br> 4. Refresh the main memorial page to check the footer | Successfully logged into the admin dashboard. Refreshed the homepage to view the updated footer with controls | PASS |
+| Admin: Update a record | Once a tribute has been modified the updates are saved inside the PostgreSQL database and instantly reflected on the Memorial Wall. | 1. Click on the words "Memorial Posts" from the main admin dashboard <br> 2. Click on the top post author_name = "Form Test" <br> 3. Change the author_name to "Doctor Who" <br> 4. Click "Save" | A confirmation message appeared within the admin dashboard to confirm that the updates have been saved. Refreshing the main webpage and navigate to the memorial wall, the top post now has the author name of "Doctor Who" | PASS |
+| Admin: Delete a record | Once a tribute has been deleted, the record row is permanently dropped from the database table. The Memorial wall feed will update to reflect the tribute being deleted. | 1. Click on the words "Memorial Posts" from the main admin dashboard. <br> 2. Click on the top post author_name = "Doctor Who" <br> 3. Click the red "Delete" button <br> 4. A warning will appear asking you if you are sure you want to delete the post <br> 5. Click "Yes, I'm sure"| A confirmation message appeared within the main admin dashboard to confirm the post was deleted successfully. Refreshing the main webpage and navigating to the memorial wall shows that the top post is now deleted | PASS |
+
+
+
+####  Links
+
+| Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
+| :--- | :--- | :--- | :--- | :--- |
+| Donation Website Link | The link target opens in an external tab without closing the memorial page tab. | 1. Scroll down to the charity support banner section.<br>2. Click on the "Donate via Givewheel" button link. | The Givewheel portal successfully opened in a completely separate browser tab. | **PASS** |
