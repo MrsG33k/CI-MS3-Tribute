@@ -323,7 +323,7 @@ This project fully implements standard relational database CRUD (Create, Read, U
 | **CREATE** | Tribute Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`) directly into the PostgreSQL database. |
 | **READ** | The Memorial Wall Feed | Django queries records from the backend and passes them to the template via a context dictionary (`tributes`), rendering them in reverse-chronological order. |
 | **LOCATE** | Dynamic Search Filter | Users can isolate specific entries instantly. The view captures URL parameters using `request.GET.get('q')` and runs database filter lookups using `Q` objects to filter fields case-insensitively. |
-| **UPDATE** | Family Administrative Portal | Authorized family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
+| **UPDATE** | Family Administrative Portal | Authorised family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
 | **DELETE** | Content Curation Controls | Spammed, duplicated, or erroneous messages can be instantly and permanently removed from the server by family users via the secure backend layout. |
 
 
@@ -355,6 +355,8 @@ This project fully implements standard relational database CRUD (Create, Read, U
 * [Favicon.io](https://favicon.io/) - Used to create the favicon based on the logo
 
 * [dbdiagram.io](https://dbdiagram.io/) - Used to create the Entity Relationship Diagram
+
+* [Pip](https://pypi.org/project/pip/) - Tool for installing Python packages
 
 
 
