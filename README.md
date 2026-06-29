@@ -451,4 +451,12 @@ This project is a deeply personal tribute, and its successful implementation wou
 
 * **Michael Whittaker:** For providing technical troubleshooting assistance during the initial deployment phase to Railway, and for thorough cross-device compatibility testing to ensure a seamless responsive user experience.
 * **Elaine Hopkins:** For offering insightful design feedback that directly helped shape and polish the final grid layout and structural header aesthetics.
+* **Rachel Furlong:** EKC tutor - She offered some really helpful advice on how to tackle this and helped with breaking down the project especially once the timeframes for submitting the project were restricted.
 * **My Mum and Sister:** For their heartfelt collaboration, guidance, and continuous involvement throughout the creative process, specifically in choosing the typography, refining the wording of the page, and selecting the perfect header photograph to honor our dad's memory.
+<br>
+- - - 
+<br>
+
+### Complications
+
+**EKC College - Ashford:** Early on in this project, April, the college decided to end their partnership with Code Institute. I was working to a timeline to finish this milestone Project in July, and submit the final milestone project in October. These timeframes were suddenly severely restricted with the college insisting all work be submitted by 30th June. This has limited my creativity and time to really work on developing my coding skills in order to hit the higher criteria in the assessment grid.  
