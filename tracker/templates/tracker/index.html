@@ -35,128 +35,130 @@
             </div>    
         </div>
     </header>
-    <section class="bg-white border-bottom py-4 mb-5 shadow-sm donation-banner">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8 text-center text-md-start mb-3 mb-md-0">
-                    <h2 class="h4 fw-bold mb-1 section-heading">Support in Laurie's memory</h2>
-                    <p class="text-secondary m-0">In lieu of flowers, we are collecting donations to support 2 charities close to his heart.</p>       
-                </div>
-                <div class="col-md-4 text-center text-md-end">
-                    <a href="https://gvwhl.com/PSIJC" target="_blank" rel="noopener" class="btn btn-warning w-100 py-2 fw-bold text-dark shadow-sm"> ⚽ Donate via Givewheel</a>
-                    <small class="text-muted d-block mt-1 small-text">Opens securely in a new browser tab</small>
-                </div>
-            </div>
-        </div>
-    </section>
-    <main class="container mb-5">
-        <div class="row g-4">
-            <div class="col-lg-4">
-                <div class="card form-card p-4">
-                    <h3 class="h4 fw-bold mb-3 section-heading">Add to the tributes</h3>
-                    <p class="small text-muted mb-4">Leave a memory or story about Laurie below to share with family and friends.</p>
-                    <form method ="POST">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="author_name" class="form-label fw-semibold">Your name:</label><br>
-                            <input type="text" class="form-control" id="author_name" name="author_name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="relationship" class="form-label fw-semibold">Relationship:</label><br>
-                            <select class="form-select" name="relationship" id="relationship">
-                                <option value="family">Family</option>
-                                <option value="friend">Friend</option>
-                                <option value="railway">Railway</option>
-                                <option value="football">Football</option>
-                                <option value="community">Community</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tribute_text" class="form-label fw-semibold">Your Memory or Message:</label><br>
-                            <textarea class="form-control" name="tribute_text" id="tribute_text" rows="5" required></textarea>
-                        </div>
-                        <div class="form-check form-switch mb-4 p-3 bg-light rounded border">
-                            <input class="form-check-input ms-0 me-2" type="checkbox" id="light_candle" name = "light_candle">
-                            <label class= "form-check-input-label fw-semibold" for="light_candle">Light a virtual candle for Laurie</label>
-                        </div>
-                        <button type="submit" class="btn btn-cfc-blue w-100 py-2 shadow-sm">Share Memory</button>
-                    </form>
+    <main>
+        <section class="bg-white border-bottom py-4 mb-5 shadow-sm donation-banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8 text-center text-md-start mb-3 mb-md-0">
+                        <h2 class="h4 fw-bold mb-1 section-heading">Support in Laurie's memory</h2>
+                        <p class="text-secondary m-0">In lieu of flowers, we are collecting donations to support 2 charities close to his heart.</p>       
+                    </div>
+                    <div class="col-md-4 text-center text-md-end">
+                        <a href="https://gvwhl.com/PSIJC" target="_blank" rel="noopener" class="btn btn-warning w-100 py-2 fw-bold text-dark shadow-sm"> ⚽ Donate via Givewheel</a>
+                        <small class="text-muted d-block mt-1 small-text">Opens securely in a new browser tab</small>
+                    </div>
                 </div>
             </div>
-        
-            <div class="col-lg-8">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h2 class="h4 fw-bold m-0 section-heading">The Memorial Wall</h2>
-                    <span class="text-muted small">{{tributes|length}} tributes shared</span>
+        </section>
+        <div class="container mb-5">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card form-card p-4">
+                        <h3 class="h4 fw-bold mb-3 section-heading">Add to the tributes</h3>
+                        <p class="small text-muted mb-4">Leave a memory or story about Laurie below to share with family and friends.</p>
+                        <form method ="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="author_name" class="form-label fw-semibold">Your name:</label><br>
+                                <input type="text" class="form-control" id="author_name" name="author_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="relationship" class="form-label fw-semibold">Relationship:</label><br>
+                                <select class="form-select" name="relationship" id="relationship">
+                                    <option value="family">Family</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="railway">Railway</option>
+                                    <option value="football">Football</option>
+                                    <option value="community">Community</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tribute_text" class="form-label fw-semibold">Your Memory or Message:</label><br>
+                                <textarea class="form-control" name="tribute_text" id="tribute_text" rows="5" required></textarea>
+                            </div>
+                            <div class="form-check form-switch mb-4 p-3 bg-light rounded border">
+                                <input class="form-check-input ms-0 me-2" type="checkbox" id="light_candle" name = "light_candle">
+                                <label class= "form-check-input-label fw-semibold" for="light_candle">Light a virtual candle for Laurie</label>
+                            </div>
+                            <button type="submit" class="btn btn-cfc-blue w-100 py-2 shadow-sm">Share Memory</button>
+                        </form>
+                    </div>
                 </div>
+            
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h2 class="h4 fw-bold m-0 section-heading">The Memorial Wall</h2>
+                        <span class="text-muted small">{{tributes|length}} tributes shared</span>
+                    </div>
 
-                <div class="card p-3 mb-4 shadow-sm border-0 bg-light">
-                    <form method="GET" class="d-flex align-items-center gap-2">
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0 text-muted">🔍</span>
-                            <input class="form-control border-start-0" 
-                            type="search" 
-                            name="q" 
-                            placeholder="Search memories..." 
-                            aria-label="search" 
-                            value="{{request.GET.q|default:''}}"
-                            data-hx-get = "{% url 'home' %}"
-                            data-hx-trigger="keyup changed delay:500ms, search"
-                            data-hx-target=".timeline-container"
-                            data-hx-select=".timeline-container">
-                        </div>
-                        <button class="btn btn-cfc-blue px-4 shadow-sm" type="submit">Search</button>
-                        {% if request.GET.q %}
-                            <a href="?" class="btn btn-outline-secondary shadow-sm">Clear</a>
-                        {% endif %}
-                    </form>
-                </div>
+                    <div class="card p-3 mb-4 shadow-sm border-0 bg-light">
+                        <form method="GET" class="d-flex align-items-center gap-2">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted">🔍</span>
+                                <input class="form-control border-start-0" 
+                                type="search" 
+                                name="q" 
+                                placeholder="Search memories..." 
+                                aria-label="search" 
+                                value="{{request.GET.q|default:''}}"
+                                data-hx-get = "{% url 'home' %}"
+                                data-hx-trigger="keyup changed delay:500ms, search"
+                                data-hx-target=".timeline-container"
+                                data-hx-select=".timeline-container">
+                            </div>
+                            <button class="btn btn-cfc-blue px-4 shadow-sm" type="submit">Search</button>
+                            {% if request.GET.q %}
+                                <a href="?" class="btn btn-outline-secondary shadow-sm">Clear</a>
+                            {% endif %}
+                        </form>
+                    </div>
 
-                <div class="timeline-container" aria-live="polite" aria-atomic="true">
-                    {% if tributes %}
-                        {% for tribute in tributes %}
-                            <div class="card tribute-card border-0 shadow-sm mb-3 p-4">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <div>
-                                        <h3 class="h5 fw-bold mb-0 text-dark">{{tribute.author_name}}</h3>
-                                        <span class="badge bg-light text-dark border text-capitalize px-2 py-1 mt-1 small">
-                                            {{tribute.get_relationship_display}}
-                                        </span>
+                    <div class="timeline-container" aria-live="polite" aria-atomic="true">
+                        {% if tributes %}
+                            {% for tribute in tributes %}
+                                <div class="card tribute-card border-0 shadow-sm mb-3 p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h3 class="h5 fw-bold mb-0 text-dark">{{tribute.author_name}}</h3>
+                                            <span class="badge bg-light text-dark border text-capitalize px-2 py-1 mt-1 small">
+                                                {{tribute.get_relationship_display}}
+                                            </span>
+                                        </div>
+                                        {% if tribute.light_candle %}
+                                            <span class="glowing-candle" title="A virtual candle was lit alongside this tribute">🕯️</span>
+                                        {% endif %}
                                     </div>
-                                    {% if tribute.light_candle %}
-                                        <span class="glowing-candle" title="A virtual candle was lit alongside this tribute">🕯️</span>
-                                    {% endif %}
-                                </div>
 
-                                <p class="text-secondary my-3 style-text white-space">{{tribute.tribute_text}}</p>
-                                
-                                <div class="text-end border-top pt-2">
-                                    <small class="text-muted small-text">
-                                        {{ tribute.date_created|date:"F d, Y P" }}
-                                    </small>
+                                    <p class="text-secondary my-3 style-text white-space">{{tribute.tribute_text}}</p>
+                                    
+                                    <div class="text-end border-top pt-2">
+                                        <small class="text-muted small-text">
+                                            {{ tribute.date_created|date:"F d, Y P" }}
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>
-                        {% empty %}
-                            <div class="text-center bg-white rounded p-5 shadow-sm border" role="status">
-                                <h3>No matching memories found.</h3>
-                                <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
-                                <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {% if request.GET.q %}
-                            <div class="text-center bg-white rounded p-5 shadow-sm border">
-                                <h3>No matching memories found.</h3>
-                                <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
-                                <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
-                            </div>
+                            {% empty %}
+                                <div class="text-center bg-white rounded p-5 shadow-sm border" role="status">
+                                    <h3>No matching memories found.</h3>
+                                    <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
+                                    <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
+                                </div>
+                            {% endfor %}
                         {% else %}
-                            <div class="text-center bg-white rounded p-5 shadow-sm border">
-                                <p class="text-muted m-0">No tributes have been shared yet. Be the first to leave a memory.</p>
-                            </div>
+                            {% if request.GET.q %}
+                                <div class="text-center bg-white rounded p-5 shadow-sm border">
+                                    <h3>No matching memories found.</h3>
+                                    <p class="text-muted m-0 mt-2">We couldn't find any memories matching "<strong>{{ request.GET.q }}</strong>". Try searching again.</p>
+                                    <a href="?" class="btn btn-outline-secondary btn-sm mt-3">View All Memories</a>
+                                </div>
+                            {% else %}
+                                <div class="text-center bg-white rounded p-5 shadow-sm border">
+                                    <p class="text-muted m-0">No tributes have been shared yet. Be the first to leave a memory.</p>
+                                </div>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
