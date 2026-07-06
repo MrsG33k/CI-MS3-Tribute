@@ -314,7 +314,7 @@ The `tracker_memorialpost` table intentionally remains unlinked by a direct **Fo
 
 3. **Administrative Isolation:** The `auth_user` and `django_session` tables exist separately to manage authenticating and tracking active administrative sessions. The staff accounts use Django's underlying object-relational mapping (ORM) privilege layers to gain access to the row manipulation controls (Update/Delete) over `tracker_memorialpost` within the administrative workspace, removing the need for a rigid database-level schema link.
 
-### Database Architecture & CRUD Realization
+### Database Architecture
 
 This project fully implements standard relational database CRUD (Create, Read, Update, Delete) architecture using Django Views, a PostgreSQL database model, and an administrative user interface:
 
