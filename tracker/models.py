@@ -29,7 +29,7 @@ class MemorialPost(models.Model):
     # Automatically records the date and time the memory was posted
     date_created = models.DateTimeField(auto_now_add=True)
 
-    #Stores unique session string - used for editing and deleting tributes if needed.
+    # Stores unique session string - used for editing and deleting tributes if needed.
     session_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
 
     def __str__(self):

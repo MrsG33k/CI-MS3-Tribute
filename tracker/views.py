@@ -22,7 +22,8 @@ def memorial_home(request):
             author_name=author,
             relationship=relationship_type,
             tribute_text=text,
-            light_candle=candle_ticked
+            light_candle=candle_ticked,
+            session_id=request.session.session_key
         )
 
         # Refresh the page so they immediately see their post on the timeline
@@ -49,6 +50,7 @@ def memorial_home(request):
     context = {
         'tributes': all_tributes,
         'candle_count': total_candles,
+        'user_session_key': request.session.session_key
     }
 
     # Deliver the webpage to the visitors browser
