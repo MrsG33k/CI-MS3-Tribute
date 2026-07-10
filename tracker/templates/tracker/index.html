@@ -137,6 +137,7 @@
                                             {{ tribute.date_created|date:"F d, Y P" }}
                                         </small>
                                     </div>
+                                    {% if tribute.session_id == user_session_key and user_session_key and tribute.session_id != "admin_locked" %}
                                     <div class="card-footer bg-transparent border-0 pt-2 px-0 d-flex gap-2 justify-content-end">
                                         <a href="{% url 'edit_tribute' tribute.pk %}" class="btn btn-sm btn-outline-secondary">
                                             <i class="fas fa-edit me-1"></i> Edit
@@ -145,6 +146,7 @@
                                             <i class="fas fa-trash-alt me-1"></i> Delete
                                         </a>
                                     </div>
+                                    {% endif %}
                                 </div>
                             {% empty %}
                                 <div class="text-center bg-white rounded p-5 shadow-sm border" role="status">
