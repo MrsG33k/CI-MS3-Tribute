@@ -17,6 +17,10 @@ def memorial_home(request):
         # Check if they ticked the "light a candle" box
         candle_ticked = request.POST.get("light_candle") == "on"
 
+        if not request.session.session_key:
+            request.session['has_session'] = True
+            request.session.save()
+
         # Save this into the database
         MemorialPost.objects.create(
             author_name=author,
@@ -42,6 +46,10 @@ def memorial_home(request):
             Q(author_name__icontains=search_query) |
             Q(tribute_text__icontains=search_query)
         )
+    
+    if not request.session.get('has_session'):
+        request.session['has_session'] = True
+        request.session.save()
 
     # Count how many virtual candles have been lit
     total_candles = MemorialPost.objects.filter(light_candle=True).count()
