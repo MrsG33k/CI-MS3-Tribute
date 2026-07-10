@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A memorial tribute page for Laurie Irvine, allowing friends and family to share memories and light virtual candles in his honor.">
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'tracker/images/favicon.ico' %}">
+    <title>In Loving Memory: Laurie Irvine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'tracker/css/style.css' %}">
+</head>
+<body>
+    <header class="stadium-header text-center text-md-start overflow-hidden">
+        <div class="container">
+            <div class="row align-items-end pt-5 pt-md-2">
+                <div class="col-12 col-md-6 col-lg-5 text-center order-2 order-lg-first">
+                    <img src="{% static 'tracker/images/laurieheadersm.webp' %}" alt="Laurie Irvine Portrait" class="img-fluid memorial-picture-glow">
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 text-center text-md-start pb-0 pb-md-5 mb-4 mb-md-0 order-1">
+                    <span class="badge bg-warning text-dark mb-2 px-3 py-2 text-uppercase tracking-wider fw-bold">The Pride of London</span>
+                    <h1 class="display-4 fw-bold text-white mb-2">In Loving Memory of Laurie Irvine</h1>
+                    <p class="text-white-50 max-w-2xl mx-auto mx-md-0 header-tribute-text">Blue is the colour, football is the game, gone but not forgotten, forever in our hearts</p>
+                    <div class="mt-3">
+                        <span class="d-none d-md-inline-flex align-items-center bg-white text-dark rounded-pill px-4 py-2 shadow-sm fw-semibold">
+                        🕯️<span class="text-primary mx-2 fw-bold" aria-hidden="true">{{candle_count}}</span> Candles Lit
+                        </span>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h2 class="h4 fw-bold m-1 pb-2 section-heading">Edit Your Memory</h2>
+                        
+                        <form method="POST" aria-label="Edit tribute form">
+                            {% csrf_token %}
+                            
+                            <!-- Author Name Input -->
+                            <div class="mb-3">
+                                <label for="author_name" class="form-label font-body fw-bold">Your Name:</label>
+                                <input type="text" name="author_name" id="author_name" class="form-control" value="{{ tribute.author_name }}" required autocomplete="name">
+                            </div>
+                            
+                            <!-- Relationship Dropdown Selection -->
+                            <div class="mb-3">
+                                <label for="relationship" class="form-label font-body fw-bold">Relationship:</label>
+                                <select name="relationship" id="relationship" class="form-select">
+                                    <option value="Family" {% if tribute.relationship == 'Family' %}selected{% endif %}>Family</option>
+                                    <option value="Friend" {% if tribute.relationship == 'Friend' %}selected{% endif %}>Friend</option>
+                                    <option value="Colleague" {% if tribute.relationship == 'Colleague' %}selected{% endif %}>Colleague</option>
+                                    <option value="Other" {% if tribute.relationship == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Tribute Textarea Content -->
+                            <div class="mb-3">
+                                <label for="tribute_text" class="form-label font-body fw-bold">Your Memory or Message:</label>
+                                <textarea name="tribute_text" id="tribute_text" class="form-control" rows="5" required>{{ tribute.tribute_text }}</textarea>
+                            </div>
+                            
+                            <!-- Virtual Candle Toggle Option -->
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" name="light_candle" id="light_candle" {% if tribute.light_candle %}checked{% endif %}>
+                                <label class="form-check-label font-body" for="light_candle">Light a virtual candle for Laurie</label>
+                            </div>
+                            
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a href="{% url 'home' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+                                <button type="submit" class="btn btn-cfc-blue w-100 py-2 shadow-sm">Save Changes</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
