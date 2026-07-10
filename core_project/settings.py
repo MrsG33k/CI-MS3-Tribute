@@ -5,8 +5,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-development-key-never-use-in-production')
-
-DEBUG = os.environ.get('DEBUG_VALUE', 'False') == 'True'
+DEBUG = True
+# DEBUG = os.environ.get('DEBUG_VALUE', 'False') == 'True'
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

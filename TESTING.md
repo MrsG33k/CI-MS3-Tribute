@@ -11,7 +11,7 @@ You can view the deployed application here [Laurie Irvine Memorial](https://web-
 
 ## CONTENTS
 
-* [AUTOMATED TESTING](#automated-testing)
+* [VALIDATION TESTING](#validation-testing)
   * [W3C Validator](#w3c-validator)
   * [Lighthouse](#lighthouse)
   * [Accessible Web](#accessile-web)
@@ -19,12 +19,24 @@ You can view the deployed application here [Laurie Irvine Memorial](https://web-
   * [Testing User Stories](#testing-user-stories)
   * [Full Testing](#full-testing)
 
+
+## Automated vs. Manual Testing Methodology
+
 Testing was ongoing throughout the entire build. I utilised Chrome developer tools whilst building to pinpoint and troubleshoot any issues as I went along.
 
+### Definitions
+* **Automated Testing:** Involves writing test scripts using specialised software frameworks (such as Python's built-in `unittest`, Django's standard `TestCase`, or '`Jest` for Javascript). These scripts automatically execute codebase paths, mimic interactions, and verify data without direct human engagement.
+* **Manual Testing:** Involves a human tester interacting directly with the application's user interface, manually filling out forms, clicking buttons, replicating user stories, and evaluating responsive aesthetics across physical devices and browsers.
+
+### Justification for Testing Strategy in This Project
+Automated code compliance (W3C HTML/CSS validators, Flake8 PEP8 linters, and Google Lighthouse audits) were heavily utilised to confirm core technical health, unit-testing frameworks were deliberately omitted from this development cycle for the following reasons:
+
+1. **Scope and Timeline Optimization:** Due to sudden and highly restrictive institutional timeline changes imposing constrained submission deadlines, technical development priority had to be focused entirely on deploying a robust, responsive, full-stack database application rather than writing extensive testing suites.
+2. **Dynamic UI/UX Evaluation:** Key frontend elements of this application such as the real-time search filtering powered by HTMX text field interception, rely heavily on user initiated interaction and instant visual state changes. Manual exploratory testing across various browsers (Chrome, Safari, Firefox) and mobile viewports was far more effective for identifying layout anomalies and ensuring accessibility compliance.
 
 - - -
 
-## AUTOMATED TESTING
+## VALIDATION TESTING
 
 ### Code Validation Profiles
 
@@ -133,7 +145,7 @@ Once these two issues were resolved the same scan was repeated, this time with n
 | **First Time Visitor:** I want to light a virtual candle alongside my message so that I can show my support. | The tribute form features a custom Bootstrap toggle switch element labeled "Light a virtual candle for Laurie". On submission, this passes a boolean `True` value to the database model's `light_candle` field. When rendered on the memorial wall feed, an active toggle conditionally displays a glowing candle (`🕯️`) within that specific tribute card view. | **PASSED** |
 | **Returning Visitor:** I want to revisit the page and see an updated total counter of how many virtual candles have been lit, so that I can see the ongoing support from friends and family over time. | The header area features a dynamic badge displaying `{{candle_count}}`. The underlying Django view uses a database aggregation query (`MemorialPost.objects.filter(light_candle=True).count()`) to calculate the exact sum of all records where a candle was lit. This counter updates in real time upon page loads, allowing returning visitors to see ongoing support over time. | **PASSED** |
 | **Returning Visitor:** I want to search for a specific tribute by a particular person, or a keyword so that I can read the story and share others memories. | A dedicated search bar is integrated directly above the memorial wall feed. It makes use of **HTMX text field interception**  as a user types. The backend filters records using case-insensitive complex `Q` objects on both the `author_name` and `tribute_text` fields, instantly isolating matching memories without the page needing to refresh. | **PASSED** |
-| **Returning Visitor:** As a user who has already left a memory, I want to ensure that nobody else can accidentally edit or delete it from the front end. | The Memorial Wall layout is entirely read-only for database records. Data manipulation is absent from the frontend UI and is securely isolated behind Django's built-in `django.contrib.auth` authentication portal (`/admin`). The only people who will have the ability to edit or delete a memory are administrator accounts set up using the Django auth user tables. | **PASSED** |
+| **Returning Visitor:** As a user who has already left a memory, I want to ensure that nobody else can accidentally edit or delete it from the front end. |The application implements a **Session-locked CRUD**. When a visitor creates a tribute, their unique client session key is written to that database row. Django checks the active visitor's session cookie against each post on page load; if they match, the individual template card  reveals **Edit** and **Delete** layout buttons for the applicable tributes. This gives the original author complete frontend data control while keeping all other entries strictly read-only and securely locked. | **PASSED** |
 
 
 - - -

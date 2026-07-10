@@ -238,6 +238,27 @@ The page has a simple footer section containing a gold signature of the family, 
 <br>
 
 
+### tribute_edit.html
+This is the section whereby a user who has previously left a tribute can go on to edit/delete it. 
+<br>
+<figure>
+  <img src="assets/editbutton.webp" width='500'
+        alt="The edit and delete buttons next to a tribute">
+  <figcaption>This shows the view from index.html where the edit button shows if there is a sessionID match. </figcaption>
+</figure>
+
+<br>
+<br>
+Once the user clicks the edit button they are taken to a form that retrieves the existing form values and allows the user to edit all fields. 
+<br>
+<figure>
+  <img src="assets/editform.webp" width='500'
+        alt="The form for editing a tribute">
+  <figcaption>The user can make changes and save them, which will update the database values. OR click on cancel and return back to index.html </figcaption>
+</figure>
+
+
+
 ### /admin
 
 The /admin webpage allows registered users to log into the Django admin panel to maintain the tributes left. 
@@ -269,8 +290,6 @@ The /admin webpage allows registered users to log into the Django admin panel to
 
 * **Media Attachments** I would like to expand the tribute form further to allow users to upload media alongside their tribute. This is primarily looking at photographs, but could be video files, audio files and documents. This would involve using Djangos `FileField` or `ImageField` models and also incorporating cloud media storage to store the assets uploaded.
 
-* **User led edits / deletes** The current admin login allows family members to edit and delete entries. I would like to explore giving users the option to create an account which would then allow them the options to edit or delete their entries. 
-
 * **Light / Dark system mode toggle** To aid with accessibility a toggle control to allow users to choose between light and dark mode would allow users to instantly switch the layout to suit their needs / devices. This could be implemented using some Javascript and adding alternate colours to the current CSS files.
 
 
@@ -300,13 +319,13 @@ Whilst the primary tribute interaction relies on a custom data model (`tracker_m
 Below is the Entity Relationship Diagram representing the active database schema hosted on Railway:
 
 <figure>
-    <img src="assets/dberd2.webp" alt="Entity Relationship Diagram showing the custom tracker_memorialpost and Django Auth User tables">
+    <img src="assets/dberd3.webp" alt="Entity Relationship Diagram showing the custom tracker_memorialpost and Django Auth User tables">
     <figcaption>Entity Relationship Diagram (ERD) mapping out the tracker_memorialpost and Django Auth User tables.</figcaption>
 </figure>
 
 #### Design Justification: Why the Tables Aren't Directly Linked
 
-The `tracker_memorialpost` table intentionally remains unlinked by a direct **Foreign Key (FK)** relationship to the `auth_user` table. This design pattern was a deliberate architectural choice based on the project's user requirements and  user experience (UX) goals:
+The `tracker_memorialpost` table intentionally remains unlinked by a direct **Foreign Key (FK)** relationship to the `auth_user` table. This design pattern was a deliberate architectural choice based on the project's user requirements and  user experience (UX) goals. The `session_id` field within `tracker_memorialpost` acts as a loose logical link to the `django_session` table to authorise frontend edits/deletions for anonymous users, but it is not an official Foreign Key.
 
 1. **Authentication-Free Tribute Postings:** The aim of the tribute page is to allow family, friends, and ex-colleagues to quickly leave a tribute message or light a virtual candle *without* the need to create an account or login registration. 
 
@@ -314,18 +333,18 @@ The `tracker_memorialpost` table intentionally remains unlinked by a direct **Fo
 
 3. **Administrative Isolation:** The `auth_user` and `django_session` tables exist separately to manage authenticating and tracking active administrative sessions. The staff accounts use Django's underlying object-relational mapping (ORM) privilege layers to gain access to the row manipulation controls (Update/Delete) over `tracker_memorialpost` within the administrative workspace, removing the need for a rigid database-level schema link.
 
+
 ### Database Architecture
 
 This project fully implements standard relational database CRUD (Create, Read, Update, Delete) architecture using Django Views, a PostgreSQL database model, and an administrative user interface:
 
 | Operation | Target Feature | Implementation Details |
 | :--- | :--- | :--- |
-| **CREATE** | Tribute Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`) directly into the PostgreSQL database. |
+| **CREATE** | Tribute Form | Visitors submit entries via a front-end form using a `POST` method. This saves input strings (`author_name`, `relationship`, `tribute_text`) and boolean values (`light_candle`), and the clients unique `session_id` directly into the PostgreSQL database. |
 | **READ** | The Memorial Wall Feed | Django queries records from the backend and passes them to the template via a context dictionary (`tributes`), rendering them in reverse-chronological order. |
 | **LOCATE** | Dynamic Search Filter | Users can isolate specific entries instantly. The view captures URL parameters using `request.GET.get('q')` and runs database filter lookups using `Q` objects to filter fields case-insensitively. |
-| **UPDATE** | Family Administrative Portal | Authorised family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
-| **DELETE** | Content Curation Controls | Spammed, duplicated, or erroneous messages can be instantly and permanently removed from the server by family users via the secure backend layout. |
-
+| **UPDATE** | Frontend Editing & Family Administrative Portal | Authors can update their own posts directly on the frontend dashboard template via matching unique browser session keys. Authorised family members can securely modify the names, relationship labels, or content of any tribute via the built-in admin workspace. |
+| **DELETE** | Frontend Editing & Family Administrative Portal | Authors can delete their specific tribute from the live memorial wall via the delete button, which will trigger a confirmation dialog before deleting from the database. Spammed, duplicated, or erroneous messages can be instantly and permanently removed from the server by family users via the secure backend layout. |
 
 
 ## Technologies Used
