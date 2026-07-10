@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from .models import MemorialPost
 
@@ -55,3 +55,35 @@ def memorial_home(request):
 
     # Deliver the webpage to the visitors browser
     return render(request, 'tracker/index.html', context)
+
+
+def edit_tribute(request, pk):
+    """View to handle updating a tribute from the front end"""
+    tribute = get_object_or_404(MemorialPost, pk=pk)
+
+    # Security check: Ensure the session
+    # trying to edit matches the author's session
+    if tribute.session_id != request.session.session_key:
+        return redirect('home')
+
+    if request.method == 'POST':
+        tribute.author_name = request.POST.get('author_name')
+        tribute.relationship = request.POST.get('relationship')
+        tribute.tribute_text = request.POST.get('tribute_text')
+        tribute.light_candle = request.POST.get('light_candle') == 'on'
+        tribute.save()
+        return redirect('home')
+
+    return render(request, 'tracker/edit_tribute.html', {'tribute': tribute})
+
+
+def delete_tribute(request, pk):
+    """View to handle removing a tribute from the front end"""
+    tribute = get_object_or_404(MemorialPost, pk=pk)
+
+    # Security check: Ensure the session trying to
+    # delete matches the author's session
+    if tribute.session_id == request.session.session_key:
+        tribute.delete()
+
+    return redirect('home')
