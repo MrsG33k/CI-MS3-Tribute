@@ -29,6 +29,9 @@ class MemorialPost(models.Model):
     # Automatically records the date and time the memory was posted
     date_created = models.DateTimeField(auto_now_add=True)
 
+    #Stores unique session string - used for editing and deleting tributes if needed.
+    session_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
+
     def __str__(self):
         # How the post will look inside the Django admin panel
         return f"Tribute from {self.author_name} ({self.get_relationship_display()})"  # noqa: E501
